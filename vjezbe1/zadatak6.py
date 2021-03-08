@@ -9,7 +9,7 @@ def  nacrtaj_kruznicu_i_tocku(xi, yi, r, xt, yt):
         ys = yi + r*sin(rad)
         y.append(ys)
         plt.plot(x, y)
-        plt.plot(xs, ys)
+        plt.plot(xt, yt, 'bo')
     p = input('Zelite li graf ispisati odmah ili u pdf-u? Ako zelite odmah unesite rijec odmah, a ako zelite u pdf-u unesite PDF!')
     if p == 'odmah':
         plt.show()
