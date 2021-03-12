@@ -2,6 +2,8 @@ def nacrtaj_graf(x1, y1, x2, y2):
     x = [x1, x2]
     y = [y1, y2]
     plt.plot(x, y)
+    plt.plot(x1, y1, 'ro')
+    plt.plot(x2,y2, 'ro')
     p = input('Zelite li graf ispisati odmah ili u pdf-u? Ako zelite odmah unesite rijec odmah, a ako zelite u pdf-u unesite PDF!')
     if p == 'odmah':
         plt.show()

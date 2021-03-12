@@ -13,7 +13,7 @@ while True:
         print('Unos mora biti broj, a ne sting!')
     else:
         break
-k = y2 - y1 / x2 - x1
+k = (y2 - y1) / (x2 - x1)
 l = - k*x1 + y1
 
-print('y = {} * x + l'.format(k, l))
+print('y = {} * x + {}'.format(k, l))
