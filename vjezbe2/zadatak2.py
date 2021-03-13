@@ -4,35 +4,52 @@ from math import pi
 v0 = float(input('Unesite pocetnu brzinu u metrima po sekundi: '))
 theta = float(input('Unesite kut otklona u stupnjevima: '))
 thetarad = theta*pi/180
-g = 9.81
+a = 9.81
+t = 10
+v0x = v0 * cos(thetarad)
+v0y = v0 * sin(thetarad)
+vy = v0y 
+
+n = 100 
+delta_t = t/n 
+
+sx = 0
+sy = 0
+t_brojac = 0 
 
 X = []
 Y = []
 T = []
-for t in range(1,11):
 
-    sx = (v0*cos(thetarad))*t 
+X.append(sx)
+Y.append(sy)
+T.append(t_brojac)
+
+for i in range(n):
+
+    t_brojac = t_brojac + delta_t
+    T.append(t_brojac)
+
+    sx = sx + v0x*delta_t 
     X.append(sx)
 
-    sy = (v0*sin(thetarad))*t - g * (t/2)
+    vy = vy - a*delta_t
+    sy = sy + vy*delta_t
     Y.append(sy)
-
-    T.append(t)
 
 import matplotlib
 import matplotlib.pyplot as plt
 
-fig1=plt.figure()
-fig1.suptitle('Grafovi')
+fig, axes = plt.subplots(2, 2)
 
-plt.subplot(2,2,1)
-plt.plot(X, Y, label = 'x-y graf')
+axes[0, 0].plot(X, Y)
+axes[0, 0].set_title('x-y graf')
 
-plt.subplot(2,2,2)
-plt.plot(T, X, label = 'x-t graf')
+axes[0, 1].plot(T, X)
+axes[0, 1].set_title('x-t graf')
 
-plt.subplot(2,2,3)
-plt.plot(T, Y, label = 'y-t graf')
+axes[1, 0].plot(T, Y)
+axes[1, 0].set_title('y-t graf')
 
 plt.show()
 
