@@ -1,16 +1,15 @@
-from math import sin, cos
-from math import pi
-from math import sqrt
+import math
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 g = 9.81
 
-def kraj_gibanja(v0, g, theta, pi, t_maks):
+def kraj_gibanja(v0, g, theta, t_maks):
 
-    thetarad = theta*pi/180
+    thetarad = theta*math.pi/180
       
-    v0x = v0 * cos(thetarad)
-    v0y = v0 * sin(thetarad)
+    v0x = v0 * math.cos(thetarad)
+    v0y = v0 * math.sin(thetarad)
     vy = v0y
 
     n = 100 
@@ -54,42 +53,79 @@ def kraj_gibanja(v0, g, theta, pi, t_maks):
     plt.show()
 
 
+def maks_visina(v0, theta, sy):
+    thetarad = theta*math.pi/180
+    a = 9.81
+    v0y = v0 * math.sin(thetarad)
+    vy = v0y 
+    delta_t = 0.01
+
+    while True:
+        vy = vy - a*delta_t
+        sy = sy + vy*delta_t
+
+        if vy < 0:
+            break
+            
+        return print('Najveca visina iznosi: {}'.format(sy))
 
 
-def maks_visina(v0, g, pi, theta):
-    thetarad = theta*pi/180
-    ymaks = (v0**2)/(2*g) * (sin(thetarad))**2
-    return print('Najveca visina iznosi: {}'.format(ymaks))
+def domet(v0, theta):
+
+    a = 9.81
+    thetarad = theta*math.pi/180
+    v0x = v0 * math.cos(thetarad)
+    v0y = v0 * math.sin(thetarad)
+    vy = v0y 
+ 
+    delta_t = 0.01
+    sx = 0
+    sy = 0
+ 
+    while True: 
+
+        sx = sx + v0x*delta_t 
+
+        vy = vy - a*delta_t
+        sy = sy + vy*delta_t
+
+        if sy <= 0:
+            break
+    
+    return print('Domet iznosi: {}'.format(sx))
+            
 
 
+def maks_brzina(v0, theta, g, sy):
+    thetarad = theta*math.pi/180
+      
+    v0x = v0 * math.cos(thetarad)
 
+    v0y = v0 * math.sin(thetarad)
+    vy = v0y
+    
+    delta_t = 0.01
+    
+    while True:
+        vx = v0x
+        vy = vy - g*delta_t
+        sy = sy + vy*delta_t
+        maksimalna_brzina = math.sqrt((vx)**2 + (vy)**2)
 
-def domet(v0, g, pi, theta):
-    thetarad = theta*pi/180
-    D = (v0**2/g)*sin(thetarad)
-    return print('Domet iznosi: {}'.format(D))
-
-
-def maks_brzina(v0, theta, pi, g):
-    thetarad = theta*pi/180
-    t_maks = (2*v0*sin(thetarad))/g
-    v0x = v0 * cos(thetarad)
-    vx = v0x*cos(thetarad)
-    vy = v0*sin(thetarad)-g*t_maks
-    v_maks = sqrt((vx)**2 + (vy)**2)
-    return print('Maksimalna brzina  iznosi: {}'.format(v_maks))
+        if sy <= 0:
+            break
+        
+    return print('Maksimalna brzina  iznosi: {}'.format(maksimalna_brzina))
     
 
-
-def meta_i_hitac(v0, theta,pi, t_maks, sy0):
-
-    thetarad = theta*pi/180
+def meta_i_hitac(v0, theta, t_maks, sy0):
+    thetarad = (theta*math.pi /180) 
     xm = float(input('Unesi x koordinatu mete: '))
     ym = float(input('Unesi y koordinatu mete: '))
     r = int(input('Unesi radijus mete: '))
     
-    v0x = v0 * cos(thetarad)
-    v0y = v0 * sin(thetarad)
+    v0x = v0 * math.cos(thetarad)
+    v0y = v0 * math.sin(thetarad)
     vy = v0y
 
     a = 9.81
@@ -107,7 +143,7 @@ def meta_i_hitac(v0, theta,pi, t_maks, sy0):
     X.append(sx)
     Y.append(sy)
 
-    minimalna_udaljenost = sqrt((xm)**2 + (ym - sy0)**2)
+    minimalna_udaljenost = math.sqrt((xm)**2 + (ym - sy0)**2)
     
     i = False 
 
@@ -122,7 +158,7 @@ def meta_i_hitac(v0, theta,pi, t_maks, sy0):
 
         X.append(sx)
         Y.append(sy)
-        udaljenost = sqrt((xm)**2 + (ym - sy0)**2)
+        udaljenost = math.sqrt((xm)**2 + (ym - sy0)**2)
 
         if udaljenost <= r:
             i = True
@@ -141,9 +177,9 @@ def meta_i_hitac(v0, theta,pi, t_maks, sy0):
     x_graf = []
     y_graf = []
 
-    for pi in range(1, 3600):
-        apcisa = xm + r*cos(pi/10)
-        ordinata = ym + r*sin(pi/10)
+    for math.pi in range(1, 3600):
+        apcisa = xm + r*math.cos(math.pi/10)
+        ordinata = ym + r*math.sin(math.pi/10)
         x_graf.append(apcisa)
         y_graf.append(ordinata)
     
