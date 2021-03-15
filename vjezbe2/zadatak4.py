@@ -1,7 +1,6 @@
 import math
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
 g = 9.81
 
 def kraj_gibanja(v0, g, theta, t_maks):
@@ -103,19 +102,21 @@ def maks_brzina(v0, theta, g, sy):
 
     v0y = v0 * math.sin(thetarad)
     vy = v0y
-    
+    pocetna = math.sqrt((v0x)**2 + (v0y)**2)
     delta_t = 0.01
-    
+
+    V = []
+    V.append(pocetna)
     while True:
         vx = v0x
         vy = vy - g*delta_t
         sy = sy + vy*delta_t
         maksimalna_brzina = math.sqrt((vx)**2 + (vy)**2)
-
+        V.append(maksimalna_brzina)
         if sy <= 0:
             break
         
-    return print('Maksimalna brzina  iznosi: {}'.format(maksimalna_brzina))
+    return print('Maksimalna brzina  iznosi: {}'.format(max(V)))
     
 
 def meta_i_hitac(v0, theta, t_maks, sy0):
