@@ -84,62 +84,72 @@ class Particle:
 
     
     def velocity_to_hit_target(self, x_meta, y_meta, r_meta):
-        self.x_meta = x_meta
-        self.y_meta = y_meta
-        self.r_meta = r_meta
         self.v0 = 0
-
         meta_je_pogodena = False
+        self.vx = self.v0 * math.cos(self.thetarad)
+        self.vy = self.v0 * math.sin(self.thetarad)
 
         while True:
-            self.vx = self.v0 * math.cos(self.thetarad)
-            self.vy = self.v0 * math.sin(self.thetarad)
             self.__move()
 
-            D = math.sqrt((self.x_meta - self.x)**2 + (self.y_meta - self.y)**2)
+            D = math.sqrt((self.x - x_meta )**2 + (self.y - y_meta )**2)
 
-            if D <= self.r_meta:
-                meta_je_pogodena = True
-                break 
-            else:
-                if self.v0 >100:
-                    break
+            if self.y>0:
+                
+                if D <= r_meta:
+                    meta_je_pogodena = True
+                    break 
                 else:
-                    self.v0 = self.v0 + 0.5
+                    if self.v0 >100:
+                        break
+            else:
+                self.x = 0
+                self.y = 0
+                self.v0 = self.v0 + 0.3
+                self.vx = self.v0 * math.cos(self.thetarad)
+                self.vy = self.v0 * math.sin(self.thetarad)
+                    
 
         if meta_je_pogodena:
             print('Brzina iznosi: {}'.format(self.v0))
+            return self.v0
         else:
             print('Metu nije moguce pogoditi!')
-
+            
 
     def angle_to_hit_target(self, x_meta, y_meta, r_meta):
-        self.x_meta = x_meta
-        self.y_meta = y_meta
-        self.r_meta = r_meta
         self.theta = 0
         meta_je_pogodena = False
-
+        self.thetarad = self.theta*math.pi/180
+        self.vx = self.v0 * math.cos(self.thetarad)
+        self.vy = self.v0 * math.sin(self.thetarad)
+        
         while True:
-            self.thetarad = self.theta*math.pi/180
+            
             self.__move()
 
-            D = math.sqrt((self.x_meta - self.x)**2 + (self.y_meta - self.y)**2)
-
-            if D <= self.r_meta:
-                meta_je_pogodena = True
-                break 
-            else:
-                if self.theta >90:
-                    break
+            D = math.sqrt((self.x - x_meta )**2 + (self.y - y_meta )**2)
+            if self.y>0:
+                if D <= r_meta:
+                    meta_je_pogodena = True
+                    break 
                 else:
-                    self.theta = self.theta + 1
+                    if self.theta >90:
+                        break
+            else:
+                self.x = 0
+                self.y = 0
+                self.theta = self.theta + 1
+                thetarad = self.theta*math.pi/180
+                self.thetarad = thetarad
+                self.vx = self.v0 * math.cos(self.thetarad)
+                self.vy = self.v0 * math.sin(self.thetarad)
 
         if meta_je_pogodena:
             print('Kut iznosi: {}'.format(self.theta))
+            return self.theta
         else:
             print('Metu nije moguce pogoditi!')
-
         
 
 
