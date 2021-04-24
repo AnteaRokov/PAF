@@ -9,7 +9,7 @@ def apsolutna_pogreska():
     apsolutna_pogreska = []
 
     for delta_t in lista_delta_t:
-        h1.init(0.1 ,2 ,0 ,0.1 ,delta_t)  
+        h1.init(0.1 ,2 ,0.2 ,0.1 ,delta_t)  
         greska = (abs(h1.period() - h1.period_analiticki()) / h1.period_analiticki()) * 100
         apsolutna_pogreska.append(greska)
 
