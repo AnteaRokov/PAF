@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class field:
-    def __init__(self,m,y0,x0,z0,q,v,a,b,c,Ee):
+    def __init__(self,m,y0,x0,z0,q,v,Em,Ee):
         self.masa = m
         self.polozaj = np.array([x0,y0,z0])
         self.polozaj0 = np.array([x0,y0,z0])
@@ -10,10 +10,7 @@ class field:
         self.polozaji_y = [x0]
         self.polozaji_z = [x0]
         self.q = q
-        self.a = a
-        self.b = b
-        self.c = c
-        self.Em = 0
+        self.Em = Em
         self.v0 = v
         self.v = v
         self.Ee = Ee
@@ -51,10 +48,7 @@ class field:
         t = 0.1
         while t<10:
             if x == 1:
-                a = eval(self.a)
-                b = eval(self.b)
-                c = eval(self.c)
-                self.Em = np.array([a,b,c]) 
+                self.Em = np.array([0,0,t/10]) 
             
             k1v = self.akc(0) * self.dt
             k1 = (self.v * self.dt)
