@@ -1,0 +1,49 @@
+#include <particle.h>
+#include <math.h>
+
+void Particle::evolve()
+{
+  while(y >= 0)
+  {
+    vx += 0.;
+    vy += g*delta_t;
+
+    x += vx*delta_t;
+    y += vy*delta_t;
+
+    t += delta_t;
+  }
+}
+
+Particle::Particle(double v, double theta, double x0, double y0, double step)
+{
+
+  vx = v*cos(theta*M_PI/180.);
+  vy = v*sin(theta*M_PI/180.);
+  x = x0;
+  y = y0;
+  t = 0.;
+  delta_t = step;
+}
+
+Particle::~Particle()
+{
+  vx = 0;
+  vy = 0;
+  x = 0;
+  y = 0;
+  t = 0.;
+  delta_t = 0;
+}
+
+double Particle::range()
+{
+  if (t < delta_t) evolve();
+  return x;
+}
+
+double Particle::time()
+{
+  if (t < delta_t) evolve();
+  return t;
+}
